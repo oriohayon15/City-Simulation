@@ -35,6 +35,7 @@ interactive terminal; symbols also make the grid readable in redirected output.
 - `Person` stores age, home, optional workplace and school assignments, and
   employment status.
 - `City.Population` contains all citizens.
+- `City.CurrentYear` starts at 2026 and will be advanced by the simulation.
 - `PopulationInitializer` creates exactly 10,000 citizens using the plan's age
   distribution: 20% ages 0-17, 35% ages 18-40, 30% ages 41-65, and 15% ages
   66-100. The upper bound of 100 is an explicit assumption because the plan only

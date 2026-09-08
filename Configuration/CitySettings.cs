@@ -2,6 +2,8 @@ namespace CitySimulation.Configuration;
 
 public static class CitySettings
 {
+    public const int InitialYear = 2026;
+
     public const int GridWidth = 12;
     public const int GridHeight = 12;
 

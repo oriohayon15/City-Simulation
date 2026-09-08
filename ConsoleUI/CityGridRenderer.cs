@@ -7,6 +7,7 @@ public static class CityGridRenderer
 {
     public static void Render(City city)
     {
+        Console.WriteLine($"Year: {city.CurrentYear}");
         Console.WriteLine($"City grid ({city.Width} x {city.Height})");
         Console.WriteLine();
 
