@@ -42,9 +42,11 @@ interactive terminal; symbols also make the grid readable in redirected output.
 - Citizens are assigned evenly across the 25 residential blocks (400 per block).
 - A fixed default random seed makes initial ages reproducible.
 
-The starting layout groups tiles by type, filling left to right and then top to
-bottom. The plan does not specify tile positions, so this layout is deterministic.
-`ConsoleUI/CityGridRenderer` displays the grid without changing the city model.
+The starting layout randomly mixes residential, workplace, school, and empty
+tiles, while reserving the final 25 grid positions for water. A fixed layout seed
+keeps the result reproducible; changing `InitialCityLayoutSeed` creates a different
+layout. `ConsoleUI/CityGridRenderer` displays the grid without changing the city
+model.
 
 ## Folders
 

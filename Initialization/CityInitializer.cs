@@ -10,33 +10,38 @@ public static class CityInitializer
     {
         var city = new City();
 
-        (TileType Type, int Count)[] distribution =
+        (TileType Type, int Count)[] landDistribution =
         [
             (TileType.Residential, CitySettings.InitialResidentialBlocks),
             (TileType.Workplace, CitySettings.InitialWorkplaceBlocks),
-            (TileType.Water, CitySettings.InitialWaterBlocks),
             (TileType.School, CitySettings.InitialSchoolBlocks),
             (TileType.Empty, CitySettings.InitialEmptyBlocks)
         ];
 
-        if (distribution.Any(group => group.Count < 0)
-            || distribution.Sum(group => group.Count) != city.Width * city.Height)
+        if (landDistribution.Any(group => group.Count < 0)
+            || CitySettings.InitialWaterBlocks < 0
+            || landDistribution.Sum(group => group.Count) + CitySettings.InitialWaterBlocks
+                != city.Width * city.Height)
         {
             throw new InvalidOperationException("Starting block counts must fill the city grid exactly.");
         }
 
-        // Fill left to right, then top to bottom for a predictable initial layout.
-        var tileIndex = 0;
+        var landTypes = landDistribution
+            .SelectMany(group => Enumerable.Repeat(group.Type, group.Count))
+            .ToArray();
 
-        foreach (var (type, count) in distribution)
+        // Shuffle only the land tiles. A fixed seed makes the layout random-looking
+        // but reproducible, which is useful when testing the simulation.
+        new Random(CitySettings.InitialCityLayoutSeed).Shuffle(landTypes);
+
+        for (var tileIndex = 0; tileIndex < city.Width * city.Height; tileIndex++)
         {
-            for (var i = 0; i < count; i++)
-            {
-                var x = tileIndex % city.Width;
-                var y = tileIndex / city.Width;
-                city.Grid[x, y].Type = type;
-                tileIndex++;
-            }
+            var x = tileIndex % city.Width;
+            var y = tileIndex / city.Width;
+
+            city.Grid[x, y].Type = tileIndex < landTypes.Length
+                ? landTypes[tileIndex]
+                : TileType.Water;
         }
 
         PopulationInitializer.Initialize(city);

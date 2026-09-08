@@ -21,11 +21,11 @@ public static class CityGridRenderer
                 {
                     var (symbol, color) = city.Grid[x, y].Type switch
                     {
-                        TileType.Residential => ('R', ConsoleColor.Green),
-                        TileType.Workplace => ('W', ConsoleColor.Yellow),
-                        TileType.School => ('S', ConsoleColor.Magenta),
-                        TileType.Water => ('~', ConsoleColor.Blue),
-                        _ => ('.', ConsoleColor.DarkGray)
+                        TileType.Residential => ('\u2588', ConsoleColor.Green),
+                        TileType.Workplace => ('\u2588', ConsoleColor.Yellow),
+                        TileType.School => ('\u2588', ConsoleColor.Magenta),
+                        TileType.Water => ('\u2588', ConsoleColor.Blue),
+                        _ => ('\u2588', ConsoleColor.DarkGray)
                     };
 
                     if (useColor)
@@ -36,6 +36,7 @@ public static class CityGridRenderer
                     Console.Write($"{symbol} ");
                 }
 
+                Console.WriteLine();
                 Console.WriteLine();
             }
         }
@@ -48,6 +49,6 @@ public static class CityGridRenderer
         }
 
         Console.WriteLine();
-        Console.WriteLine("R = Residential, W = Workplace, S = School, ~ = Water, . = Empty");
+        Console.WriteLine("\u001b[32m\u2588\u001b[0m = Residential, \u001b[33m\u2588\u001b[0m = Workplace, \u001b[35m\u2588\u001b[0m = School, \u001b[34m\u2588\u001b[0m = Water, \u001b[90m\u2588\u001b[0m = Empty");
     }
 }

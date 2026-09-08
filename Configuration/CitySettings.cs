@@ -10,6 +10,7 @@ public static class CitySettings
     public const int InitialWaterBlocks = 25;
     public const int InitialSchoolBlocks = 5;
     public const int InitialEmptyBlocks = 69;
+    public const int InitialCityLayoutSeed = 1;
 
     public const int InitialPopulation = 10_000;
 
