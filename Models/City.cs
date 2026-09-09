@@ -4,7 +4,6 @@ namespace CitySimulation.Models;
 
 public class City
 {
-    // Access tiles as Grid[x, y], with (0, 0) at the top-left corner.
     public Tile[,] Grid { get; } = new Tile[CitySettings.GridWidth, CitySettings.GridHeight];
     public List<Person> Population { get; } = [];
     public int CurrentYear { get; set; } = CitySettings.InitialYear;
