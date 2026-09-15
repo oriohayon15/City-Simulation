@@ -18,6 +18,6 @@ public class BirthSystem
                 }
         }
 
-        city.Population.AddRange(newBorns);
+        HousingSystem.HousingFormula(city, newBorns);
     }
 }

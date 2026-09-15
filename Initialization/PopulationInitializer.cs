@@ -52,6 +52,8 @@ public static class PopulationInitializer
         AddAgeGroup(city, residentialBlocks, groupCounts[1], 18, 40, random);
         AddAgeGroup(city, residentialBlocks, groupCounts[2], 41, 65, random);
         AddAgeGroup(city, residentialBlocks, groupCounts[3], 66, CitySettings.InitialMaximumAge, random);
+
+        HousingSystem.HousingFormula(city);
     }
 
     private static void AddAgeGroup(
