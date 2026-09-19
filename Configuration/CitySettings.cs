@@ -16,6 +16,7 @@ public static class CitySettings
 
     public const int InitialPopulation = 10_000;
     public const int ResidentialCapacity = 425;
+    public const int WorkplaceCapacity = 400;
 
     public const double InitialAge0To17Percentage = 0.20;
     public const double InitialAge18To40Percentage = 0.35;
