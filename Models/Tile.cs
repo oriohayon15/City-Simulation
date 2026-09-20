@@ -7,6 +7,10 @@ public class Tile
     public int X { get; }
     public int Y { get; }
     public TileType Type { get; set; }
+    public bool HasWater => Type is
+        TileType.Residential or
+        TileType.Workplace or
+        TileType.School;
 
     public Tile(int x, int y, TileType type = TileType.Empty)
     {
