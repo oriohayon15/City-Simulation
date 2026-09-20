@@ -45,6 +45,7 @@ public static class CityInitializer
         }
 
         PopulationInitializer.Initialize(city);
+        EmploymentSystem.EmploymentFormula(city);
 
         return city;
     }

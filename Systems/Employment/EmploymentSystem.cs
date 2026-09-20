@@ -9,6 +9,15 @@ public static class EmploymentSystem
     {
         ArgumentNullException.ThrowIfNull(city);
 
+        foreach (var person in city.Population)
+        {
+            if (person.Category != AgeCategory.Adult)
+            {
+                person.WorkBlock = null;
+                person.IsEmployed = false;
+            }
+        }
+
         var workplaceTiles = city.Grid.Cast<Tile>()
             .Where(tile => tile.Type == TileType.Workplace)
             .ToArray();
