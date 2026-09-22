@@ -2,22 +2,24 @@ using CitySimulation.Models;
 
 public class BirthSystem
 {
-    public static void BirthFormula(City city)
+    public static int BirthFormula(City city, Random? random = null)
     {
-        List<Person> newBorns = new List<Person>();
-        Random random = new Random();
-        foreach (Person person in city.Population)
+        ArgumentNullException.ThrowIfNull(city);
+        random ??= Random.Shared;
+
+        var newBorns = new List<Person>();
+        foreach (var person in city.Population)
         {
             if (person.Age >= 22 && person.Age <= 40)
+            {
+                if (random.NextDouble() < 0.06)
                 {
-                    double randomBirth = random.NextDouble();
-                    if (randomBirth < 0.02)
-                    {
-                        newBorns.Add(new Person(0, person.HomeBlock));
-                    }
+                    newBorns.Add(new Person(0, person.HomeBlock));
                 }
+            }
         }
 
         HousingSystem.HousingFormula(city, newBorns);
+        return newBorns.Count;
     }
 }

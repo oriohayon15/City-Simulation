@@ -31,4 +31,6 @@ public class Person
     }
 
     public void AgeOneYear() => Age++;
+
+    internal void RestoreAge(int age) => Age = age;
 }

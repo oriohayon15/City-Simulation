@@ -21,9 +21,9 @@ public static class CitySettings
     public const int TeachersPerSchool = 15;
 
     public const double InitialAge0To17Percentage = 0.20;
-    public const double InitialAge18To40Percentage = 0.35;
-    public const double InitialAge41To65Percentage = 0.30;
-    public const double InitialAge66PlusPercentage = 0.15;
+    public const double InitialAge18To40Percentage = 0.25;
+    public const double InitialAge41To65Percentage = 0.26;
+    public const double InitialAge66PlusPercentage = 0.29;
 
     // The plan defines the oldest group as 66+ but does not specify an upper bound.
     public const int InitialMaximumAge = 100;

@@ -20,25 +20,35 @@ public static class EmploymentSystem
 
         var workplaceTiles = city.Grid.Cast<Tile>()
             .Where(tile => tile.Type is TileType.Workplace or TileType.School)
+            // Fill teaching vacancies before assigning other jobs.
+            .OrderBy(tile => tile.Type == TileType.School ? 0 : 1)
             .ToArray();
-
-        //create a list of the all unemployed people in the order of oldest first so the oldest get first priority for a job
-        var unemployedPeople = new List<Person>(
-            city.Population.Where(person => 
-            person.WorkBlock is null && person.Category == AgeCategory.Adult)
-            .OrderByDescending(person => person.Age)
-        );
 
         var occupancy = workplaceTiles.ToDictionary(tile => tile, _ => 0);
         
 
         foreach (var person in city.Population)
         {
-            if (person.WorkBlock is not null && occupancy.ContainsKey(person.WorkBlock))
-        {
-            occupancy[person.WorkBlock]++;
+            if (person.WorkBlock is not null
+                && occupancy.TryGetValue(person.WorkBlock, out var count)
+                && count < (person.WorkBlock.Type == TileType.School
+                    ? CitySettings.TeachersPerSchool
+                    : CitySettings.WorkplaceCapacity))
+            {
+                occupancy[person.WorkBlock]++;
+                person.IsEmployed = true;
+            }
+            else
+            {
+                person.WorkBlock = null;
+                person.IsEmployed = false;
+            }
         }
-        }
+
+        // Older unemployed adults get first priority for either kind of job.
+        var unemployedPeople = city.Population
+            .Where(person => person.WorkBlock is null && person.Category == AgeCategory.Adult)
+            .OrderByDescending(person => person.Age);
 
         //iterate through the list and workplace tiles and add people to the workplace if there is space
         foreach (var person in unemployedPeople)
