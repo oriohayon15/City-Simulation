@@ -19,7 +19,7 @@ public static class EmploymentSystem
         }
 
         var workplaceTiles = city.Grid.Cast<Tile>()
-            .Where(tile => tile.Type == TileType.Workplace)
+            .Where(tile => tile.Type is TileType.Workplace or TileType.School)
             .ToArray();
 
         //create a list of the all unemployed people in the order of oldest first so the oldest get first priority for a job
@@ -45,7 +45,11 @@ public static class EmploymentSystem
         {
             foreach (var workplace in workplaceTiles)
             {
-                if (occupancy[workplace] < CitySettings.WorkplaceCapacity)
+                var capacity = workplace.Type == TileType.School
+                    ? CitySettings.TeachersPerSchool
+                    : CitySettings.WorkplaceCapacity;
+
+                if (occupancy[workplace] < capacity)
                 {
                     person.WorkBlock = workplace;
                     person.IsEmployed = true;

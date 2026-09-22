@@ -9,6 +9,7 @@ public class Person
     public Tile? WorkBlock { get; set; }
     public Tile? SchoolBlock { get; set; }
     public bool IsEmployed { get; set; }
+    public bool IsTeacher => IsEmployed && WorkBlock?.Type == TileType.School;
     public AgeCategory Category {get
         {
             if (Age <= 4) 
